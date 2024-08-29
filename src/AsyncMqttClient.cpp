@@ -139,7 +139,7 @@ AsyncMqttClient& AsyncMqttClient::setServer(const char* serviceName, const char*
         if (MDNS.begin(_hostName)) {  // Nome do host do ESP32
             int n = MDNS.queryService(_serviceName, _protocol);
             if (n > 0) {
-                _ip = MDNS.IP(0);
+                _ip = MDNS.address(0);
                 _port = MDNS.port(0);
                 _useIp = true;
                 return *this;
