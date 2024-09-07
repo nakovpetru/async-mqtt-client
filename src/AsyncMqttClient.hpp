@@ -15,13 +15,13 @@
 #include <ESPmDNS.h>
 #include <Preferences.h>
 #include <freertos/semphr.h>
+#include <ESPmDNS.h>
+#include <WiFi.h>
 #elif defined(ESP8266)
 #include <ESPAsyncTCP.h>
-#include <ESPmDNS.h>
 #else
 #error Platform not supported
 #endif
-#include <WiFi.h>
 
 #if ASYNC_TCP_SSL_ENABLED
 #include <tcp_axtls.h>
@@ -106,8 +106,9 @@ class AsyncMqttClient {
     uint32_t _lastClientActivity;
     uint32_t _lastServerActivity;
     uint32_t _lastPingRequestTime;
+#ifdef ESP32
     Preferences preferences;
-
+#endif
     char _generatedClientId[18 + 1];  // esp8266-abc123 and esp32-abcdef123456
     IPAddress _ip;
     const char* _host;

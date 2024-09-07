@@ -134,6 +134,7 @@ AsyncMqttClient& AsyncMqttClient::setServer(const char* serviceName, const char*
     _serviceName = serviceName;
     _protocol = protocol;
 
+#ifdef ESP32
     // std::cout << "host name: " << hostName << std::endl;
     if (_hostName != "") {
         if (MDNS.begin(_hostName)) {  // Nome do host do ESP32
@@ -146,6 +147,9 @@ AsyncMqttClient& AsyncMqttClient::setServer(const char* serviceName, const char*
             }
         }
     }
+#else
+    return *this;
+#endif
 }
 
 AsyncMqttClient& AsyncMqttClient::setHostName(const char* hostName) {
